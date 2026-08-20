@@ -45,7 +45,7 @@ A small 1D CNN — 3 convolution/pooling blocks, global average pooling, one den
 
 The model learns normal beats and ventricular ectopic beats (PVCs) well — both have distinctive QRS shapes that a CNN operating on raw waveform windows can pick up. It essentially fails on supraventricular (S) and fusion (F) beats.
 
-**Why, not just that:** S-class beats (like atrial premature contractions) are often defined more by early timing and P-wave morphology than by QRS shape — the QRS itself can look near-normal. A model trained on isolated beat windows, without relative timing (R-R interval) as an input feature, has no real way to learn this distinction. F-class beats are both extremely rare in the training data and, by definition, a blend of two other classes — a genuinely hard boundary to learn even with more data. Both limitations are inherent to the intentionally simple feature set used here, not implementation bugs.
+A likely reason why fails on S and F: both weak classes are, in different ways, harder problems than a single beat snapshot can solve. S-class beats often look nearly identical to normal beats in shape alone — the real distinguishing signal is subtler than what this model was given access to. F-class beats are rare in the data and inherently sit between two other categories, making them a hard case for any model to learn cleanly. Both are honest limitations of an intentionally simple approach, not bugs.
 
 ![Normalized confusion matrix](confusion_matrix_normalized.png)
 
